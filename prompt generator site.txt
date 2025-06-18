@@ -473,6 +473,13 @@
                 <p class="text-sm text-gray-500 mt-2">Tips: Gunakan ini untuk menyaring hasil yang tidak diinginkan.</p>
             </div>
 
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Gemini API Key (Required for Enhance Feature)</h2>
+                <label for="geminiApiKey" class="block text-gray-700 text-lg font-medium mb-2">Gemini API Key:</label>
+                <input type="password" id="geminiApiKey" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-200" placeholder="Enter your Gemini API Key here">
+                <p class="text-sm text-gray-500 mt-2">Please enter your Gemini API key here. The Enhance Prompt feature requires this key to function.</p>
+            </div>
+
             <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
                 <h2 class="text-2xl font-semibold text-blue-800 mb-4">Hasil Prompt</h2>
                 <textarea id="generatedPrompt" rows="6" class="w-full p-4 border border-blue-300 rounded-lg bg-blue-100 text-blue-900 font-mono text-base resize-y" readonly placeholder="Prompt Anda akan muncul di sini setelah Anda mengklik 'Generate Prompt'."></textarea>
@@ -706,7 +713,8 @@
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // API key is provided by the Canvas environment
+                // API key will be retrieved from the new input field 'geminiApiKey'
+                const apiKey = document.getElementById('geminiApiKey').value;
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
